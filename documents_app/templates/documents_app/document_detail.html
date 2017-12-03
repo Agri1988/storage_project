@@ -1,0 +1,50 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block body %}
+    <script src="{% static "documents_app/js/document_app.js" %}"></script>
+    <script type="text/javascript">var a = "{% url 'products_app:product_detail' 0 %}"</script>
+    <div class="row">
+        <div class="col-lg-3">
+            <form  id='document_form' enctype="multipart/form-data" action="{% url 'documents_app:document_detail' document_id %}" method="post">
+                {% csrf_token %}
+                <input hidden id="document_id" value="{{ document_id }}">
+                {{ document_form.as_p }}
+                <button name="submit">Сохранить</button>
+            </form>
+        </div>
+
+        <div class="cl-lg-9">
+            <ol id="products_in_dokument">
+                {% for form, id in products_forms_and_id %}
+                    <li>
+                        <form  enctype="multipart/form-data" action="{% url 'products_app:products_in_document_change_data' id %}" method="post">
+{#                              "#}
+                            {% csrf_token %}
+                            {{ form }}
+                            <input hidden id="products_in_document_id" value="{{ id }}">
+                            <button name="submit" >Сохранить</button>
+                        </form>
+                    </li>
+                    {% empty %}
+                    Документ пуст
+                {% endfor %}
+                {% if document_id != '0' %}
+                <div>
+                    <form id="add_product_btn" >
+                        <button type="submit">Добавить позицию</button>
+
+                    </form>
+                </div>
+                    {% else %}
+                    <br>Введите и сохраните данные документа
+                {% endif %}
+            </ol>
+
+        </div> <!-- class col-->
+
+    </div> <!--class row-->
+
+{% endblock %}

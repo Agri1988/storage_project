@@ -1,0 +1,44 @@
+{% extends 'base_app/base.html' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <table border="2" cellpadding="10px" width="700" cellspacing="10px">
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            {% if document.document_type == 'add' %}
+                                Приход
+                            {% elif document.document_type == 'remove' %}
+                                Расход
+                            {% elif document.document_type == 'move'  %}
+                                Перемещение
+                            {% endif %}
+                        </td>
+                        <td>{{ document.name }}</td>
+                        <td>{{ document.serial }}</td>
+                        <td><a href="{% url 'documents_app:document_detail' document.id %}" >{{ document.number }}</a></td>
+                        <td>{{ document.date|date:"d.m.Y"}}</td>
+                        <td>{{ document.provider }}</td>
+                        <td>
+                             {% if document.document_status_execute == True %}
+                                Проведен
+                            {% elif document.document_status_execute == False %}
+                                Не проведен
+                            {% endif %}
+                        </td>
+                    {% empty %}
+                    <h3>
+                        К сожалению у вас нет документов
+                    </h3>
+                </tr>
+            {% endfor %}
+            </table>
+            <form action="{% url 'documents_app:document_detail' 0 %}">
+                <input type="submit" value="добавить новый документ">
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

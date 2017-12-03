@@ -1,0 +1,50 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <script src="{% static "products_app/js/products_app.js" %}"></script>
+     <div class="row">
+        <div class="col-lg-12">
+            <table border="2" width="50%" id="table">
+                <tr id="search_fields">
+                    <th><input id="first_input" style="width: 50px"></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                    <th><input ></th>
+                </tr>
+                <tr>
+                    <th>№ п/п</th>
+                    <th>Код товара</th>
+                    <th>Наименование товара</th>
+                    <th>Категория</th>
+                    <th>Цена поставщика</th>
+                    <th>НДС</th>
+                    <th>Торговая надбавка</th>
+                    <th>Розничная цена</th>
+                </tr>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ forloop.counter }}<input value="{{ product.id }}" hidden></td>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.provider_price }}</td>
+                        <td>{{ product.vat }}%</td>
+                        <td>{{ product.margin_percentage|floatformat:'-2'}}%</td>
+                        <td>{{ product.product_price }}</td>
+                        {% if products %}
+
+                        {% endif %}
+
+                    </tr>
+                    {% empty %}
+                    В журнале нету товаров
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

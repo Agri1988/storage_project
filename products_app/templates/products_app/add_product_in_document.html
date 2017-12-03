@@ -1,0 +1,18 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <script src="{% static "products_app/js/products_app.js" %}"></script>
+    <div>
+        <div >
+            <form  enctype="multipart/form-data" action="{% url 'products_app:product_detail' product_id ducument_id  storage_id %}" method="post">
+                {{ ducument_id }} {{ storage_id  }}
+                {% csrf_token %}
+                {{ product_form.as_p }}
+                <button name="submit">Сохранить</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
