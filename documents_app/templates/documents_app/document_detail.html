@@ -6,6 +6,7 @@
 {% block body %}
     <script src="{% static "documents_app/js/document_app.js" %}"></script>
     <script type="text/javascript">var a = "{% url 'products_app:product_detail' 0 %}"</script>
+    <link rel="stylesheet" type="text/css" href="{% static 'documents_app/css/documents.css' %}">
     <div class="row">
         <div class="col-lg-3">
             <form  id='document_form' enctype="multipart/form-data" action="{% url 'documents_app:document_detail' document_id %}" method="post">

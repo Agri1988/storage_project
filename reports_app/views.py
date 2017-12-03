@@ -40,16 +40,12 @@ def products_remnants(request, document_id = None, document_date = date.today().
             product_count = product_entry.count
             if (product_entry.operation_type =='remove'):
                 product_count = product_count * (-1)
-            elif product_entry.operation_type =='move':
-                product_count = product_count * (-1)
-                # product_count_rem = product_count * (-1)
-                # product_count_add = product_count
             if (product.id == product_entry.product_id) and (product_entry.operation_status == 1):
                 if product_id_inloop not in remnants_of_products:
                     remnants_of_products[product_id_inloop] = product_count
                 else:
                     remnants_of_products[product_id_inloop] += product_count
-    #print(remnants_of_products)
+    print(remnants_of_products)
     context = {'products':products, 'remnants_of_products':remnants_of_products, 'document_id':document_id,
                "document_date":document_date, 'storage_id':storage_id}
     return render(request, 'reports_app/base_report.html', context)
