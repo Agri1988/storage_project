@@ -9,7 +9,7 @@ $(document).ready(function () {
 
             var table = document.getElementById('table');
             for (var i = 2; i < rows_length; i++) {
-                if ((table.rows[i].cells[index].innerText).indexOf(sample) == -1) {
+                if ((table.rows[i].cells[index].innerText.toLowerCase()).indexOf(sample.toLowerCase()) == -1) {
                     table.rows[i].setAttribute("style", "display:none")
                 }
                 else if(sample != ''){table.rows[i].setAttribute("style", "display:")}

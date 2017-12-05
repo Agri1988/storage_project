@@ -10,7 +10,7 @@
       <!-- Тут любoе сoдержимoе -->
 </div>
 <div id="overlay"></div><!-- Пoдлoжкa -->
-        
+
             <table border="2" id="table">
                 <tr id="search_fields">
                     <th><input style="width: 50px"></th>
@@ -33,13 +33,16 @@
                     <th>НДС</th>
                     <th>Торговая<br>надбавка</th>
                     <th>Розничная<br>цена</th>
-                    <th>добавить<br>в док-т</th>
+                    {% if document_id %}
+                        <th>добавить<br>в док-т</th>
+                    {% endif %}
+
                 </tr>
                 {% for product in products %}
                     {% for id, count in remnants_of_products.items %}
                         {% if product.id == id %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
+                                <td>{{ forloop.parentloop.counter }}</td>
                                 <td>{{ product.code }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ count}}</td>
@@ -48,8 +51,9 @@
                                 <td>{{ product.vat }}%</td>
                                 <td>{{ product.margin_percentage|floatformat:'-2'}}%</td>
                                 <td>{{ product.product_price }}</td>
-                                <td><input id="product_count" style="width: 70px"></td>
+
                                 {% if document_id %}
+                                    <td><input id="product_count" style="width: 70px"></td>
                                     <td>
                                         <div id="calback_data">
                                             {% csrf_token %}

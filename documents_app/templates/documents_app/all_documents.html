@@ -1,9 +1,33 @@
 {% extends 'base_app/base.html' %}
+{% load staticfiles %}
 
 {% block body %}
+    <script src="{% static "documents_app/js/all_documents.js" %}"></script>
     <div class="row">
         <div class="col-lg-12">
-            <table border="2" cellpadding="10px" width="700" cellspacing="10px">
+            <table id="table" border="2" cellpadding="10px" width="700" cellspacing="10px">
+                <tr id="search_fields">
+                    <th><input style="width: 50px"></th>
+                    <th><input style="width: 100px"></th>
+                    <th><input style="width: 100px"></th>
+                    <th><input style="width: 50px"></th>
+                    <th><input style="width: 80px"></th>
+                    <th><input style="width: 80px"></th>
+                    <th><input style="width: 200px"></th>
+                    <th><input style="width: 80px"></th>
+                    <th><input style="width: 80px"></th>
+                </tr>
+                <tr>
+                    <th>№<br>п/п</th>
+                    <th>Тип<br>операции</th>
+                    <th>Наименование<br>документа</th>
+                    <th>Серия</th>
+                    <th>Номер</th>
+                    <th>Дата</th>
+                    <th>Поставщик</th>
+                    <th>Статус</th>
+                    <th>Сумма по<br>документу</th>
+                </tr>
                 {% for document in documents %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
@@ -27,6 +51,13 @@
                             {% elif document.document_status_execute == False %}
                                 Не проведен
                             {% endif %}
+                        </td>
+                        <td>
+                            {% for id, cost in summary_cost.items %}
+                                {% if id == document.id %}
+                                    {{ cost|floatformat:'-2' }}
+                                {% endif %}
+                            {% endfor %}
                         </td>
                     {% empty %}
                     <h3>

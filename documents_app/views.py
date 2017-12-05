@@ -5,12 +5,22 @@ from products_app.models import Products, Product, ProductMovement
 from products_app.forms import ProductForm, ProductsForm
 from store_app.forms import StorageForm
 from store_app.models import Storage
+from decimal import Decimal
 
 # Create your views here.
 
 def all_documents(request):
     documents = Document.objects.all()
-    context = {'documents': documents}
+    products_in_documents = Products.objects.all()
+    summary_cost = {}
+    for document in documents:
+        for product_in_document in products_in_documents:
+            if product_in_document.document_id == document.id:
+                if (document.id not in summary_cost.keys()):
+                    summary_cost[document.id] = product_in_document.count * product_in_document.product.product_price
+                else:
+                    summary_cost[document.id] += product_in_document.count * product_in_document.product.product_price
+    context = {'documents': documents,'summary_cost':summary_cost}
     return render(request, 'documents_app/all_documents.html', context)
 
 def document_detail(request, document_id, product_id = None, storage_id = None, to_storage_id = None):

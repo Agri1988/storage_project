@@ -81,7 +81,7 @@ $(document).ready(function () {
                 success:function (data){
                     console.log('OK');
                     console.log(data);
-                    category.append("<option value="+data['new_category_id']+">"+data['new_category_name']+"</option>")
+                    category.append("<option value="+data['new_category_id']+">"+data['new_category_name']+"</option>");
                     category.val(data['new_category_id']);
                     close_modal_window()
                 },
@@ -90,10 +90,6 @@ $(document).ready(function () {
                 }
             });
     });
-
-
-
-
 
     var margin_percentage = $('#id_margin_percentage');
     var provider_price = $('#id_provider_price');
@@ -141,12 +137,11 @@ $(document).ready(function () {
 
     var table = $('#table').find('tbody').find('th');
     var rows_length = document.getElementById('table').rows.length;
-
+    console.log(table);
     function filter_data(index, sample) {
-
             var table = document.getElementById('table');
             for (var i = 2; i < rows_length; i++) {
-                if ((table.rows[i].cells[index].innerText).indexOf(sample) == -1) {
+                if ((table.rows[i].cells[index].innerText.toLowerCase()).indexOf(sample.toLowerCase()) == -1) {
                     table.rows[i].setAttribute("style", "display:none")
                 }
                 else if(sample != ''){table.rows[i].setAttribute("style", "display:")}
@@ -155,11 +150,8 @@ $(document).ready(function () {
                 }
             }
         }
-
-
     table.each(function (index) {
         var input = $(this).find('input');
-
             input.on('input keyup', function (e) {
                 filter_data(index, String(input.val()))
             })
