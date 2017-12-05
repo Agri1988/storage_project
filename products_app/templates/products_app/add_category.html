@@ -1,0 +1,7 @@
+    <div>
+        <form  id='category_form' enctype="multipart/form-data" action="{% url 'products_app:add_category' %}" method="post">
+            {% csrf_token %}
+            {{ category_form.as_p }}
+            <button name="submit">Сохранить</button>
+        </form>
+    </div>

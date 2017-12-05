@@ -2,9 +2,11 @@
 {% load staticfiles %}
 {% block body %}
     <script src="{% static "products_app/js/products_app.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'products_app/css/products.css' %}">
+    <script type="text/javascript">var url_add_category = "{% url 'products_app:add_category'%}"</script>
     <div>
         <div >
-            <form  enctype="multipart/form-data" action="{% url 'products_app:product_detail' product_id ducument_id  storage_id %}" method="post">
+            <form  id="add_new_product" enctype="multipart/form-data" action="{% url 'products_app:product_detail' product_id ducument_id  storage_id %}" method="post">
                 {{ ducument_id }} {{ storage_id  }}
                 {% csrf_token %}
                 {{ product_form.as_p }}
