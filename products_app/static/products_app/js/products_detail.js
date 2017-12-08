@@ -51,18 +51,6 @@ $(document).ready(function () {
         close_modal_window()
 	});
 
-
-    // $('a#go').click( function(event){ // лoвим клик пo ссылки с id="go"
-		// event.preventDefault(); // выключaем стaндaртную рoль элементa
-		//
-    //             var csrf = $(document).find("[name='csrfmiddlewaretoken']").val();
-		// });
-
-    //отправка формы и подстановка нового значения в select
-    //     var save_form_btn = $(document).find('#category_form').find('submit');
-    // $('body').on('click', ".find('#category_form').find('submit')",function (event) {
-    //     event.preventDefault();
-    //         console.log('dasfghjgsdfadfghj')
     $('#modal_form').on('submit',function (event) {
         event.preventDefault();
         var csrf = $('#add_new_product').find("[name='csrfmiddlewaretoken']").val();

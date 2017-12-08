@@ -1,0 +1,7 @@
+<div>
+    <form  id='partner_form' enctype="multipart/form-data" action="{% url 'partners_app:add_partner' %}" method="post">
+        {% csrf_token %}
+        {{ partner_form.as_p }}
+        <button name="submit">Сохранить</button>
+    </form>
+</div>

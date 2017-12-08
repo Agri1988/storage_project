@@ -6,6 +6,8 @@
 {% block body %}
     <script src="{% static "documents_app/js/document_app.js" %}"></script>
     <script type="text/javascript">var a = "{% url 'products_app:product_detail' 0 %}"</script>
+    <script type="text/javascript">var url_add_partner = "{% url 'partners_app:add_partner' %}"</script>
+    <link rel="stylesheet" type="text/css" href="{% static 'products_app/css/modal_form.css' %}">
     <div class="row">
         <div class="col-lg-3">
 
