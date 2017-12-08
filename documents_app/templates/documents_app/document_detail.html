@@ -8,6 +8,8 @@
     <script type="text/javascript">var a = "{% url 'products_app:product_detail' 0 %}"</script>
     <div class="row">
         <div class="col-lg-3">
+
+
             <form  id='document_form' enctype="multipart/form-data" action="{% url 'documents_app:document_detail' document_id %}" method="post">
                 {% csrf_token %}
                 <input hidden id="document_id" value="{{ document_id }}">
@@ -17,6 +19,9 @@
         </div>
 
         <div class="cl-lg-9">
+            <div style="    margin-left: 73%;margin-bottom: 15px;">
+                <button id="price_tickiet_list" data-url="{% url 'documents_app:price_ticket' document_id %}">Печать ценников</button>
+            </div>
             <ol id="products_in_dokument">
                 {% for form, id in products_forms_and_id %}
                     <li>
@@ -35,8 +40,9 @@
                 <div>
                     <form id="add_product_btn" >
                         <button type="submit">Добавить позицию</button>
-
                     </form>
+
+
                 </div>
                     {% else %}
                     <br>Введите и сохраните данные документа

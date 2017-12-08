@@ -10,7 +10,7 @@ from decimal import Decimal
 # Create your views here.
 
 def all_documents(request):
-    documents = Document.objects.all()
+    documents = Document.objects.all().order_by('date')
     products_in_documents = Products.objects.all()
     summary_cost = {}
     for document in documents:
@@ -102,3 +102,14 @@ def document_detail(request, document_id, product_id = None, storage_id = None, 
     context = {'document_form':document_form, 'document_id':document_id, 'products_forms_and_id': products_forms_and_id,
                'product_form':product_form}
     return render(request, 'documents_app/document_detail.html', context)
+
+
+def price_ticket(request, document_id):
+    products = Products.objects.filter(document=document_id)
+    print(products)
+    def f(lst, n):
+        return [lst[i:i + n] for i in range(0, len(lst), n)]
+    products = f(products, 3)
+    print(products)
+    context = {'products':products}
+    return render(request, 'documents_app/price_ticket.html', context)

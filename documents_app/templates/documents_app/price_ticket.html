@@ -1,0 +1,38 @@
+<table>
+    {% for element in products %}
+        <tr>
+            {% for product in element %}
+                <td>
+                    <table style='width: 340px;height:150px; border-bottom: 2px solid #000000;border-left: 2px solid #000000; border-right: 2px solid #000000; border-top: 2px solid #000000'>
+                        <tr>
+                            <td style='font-size: small; text-align:left'>
+                                ИП Ручечко И.Н.
+                            </td>
+                            <td style='font-size: small; text-align:right'>
+                                {{ product.document.date|date}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style='font-size: large; text-align:center'>
+                                {{ product.product.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style='font-size: xx-large; text-align:center'>
+                                {{ product.product.product_price }} руб.
+                            </td>
+                        </tr>
+                            <tr>
+                            <td style='font-size:small; text-align:left'>
+                                {{ product.document.name }}  {{ product.document.serial }}  {{ product.document.number }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+

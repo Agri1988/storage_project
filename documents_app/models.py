@@ -1,5 +1,6 @@
 from django.db import models
 from store_app.models import Storage
+from partners_app.models import Partner
 
 class Document(models.Model):
     document_type_choise = [('add','Приходный документ'), ('remove', 'Расходный документ'), ('move', 'Перемещение')]
@@ -8,7 +9,7 @@ class Document(models.Model):
     serial = models.CharField(max_length=64, verbose_name='Серия')
     number = models.CharField(max_length=64, verbose_name='Номер')
     date = models.DateField(verbose_name='Дата документа')
-    provider = models.CharField(max_length=10, verbose_name='Поставщик')
+    provider = models.ForeignKey(Partner,default=1, verbose_name='Поставщик')
     storage = models.ForeignKey(Storage,  default='1')
     to_storage = models.ForeignKey(Storage, related_name='destination_storage',default=None, blank=True, null=True)
     document_status_execute = models.BooleanField(default=False ,verbose_name='Документ проведен')

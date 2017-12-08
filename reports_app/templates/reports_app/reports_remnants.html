@@ -1,0 +1,60 @@
+<table border="2" id="table">
+    <tr id="search_fields">
+        <th><input style="width: 50px"></th>
+        <th><input style="width: 100px"></th>
+        <th><input style="width: 200px"></th>
+        <th><input style="width: 50px"></th>
+        <th><input style="width: 80px"></th>
+        <th><input style="width: 80px"></th>
+        <th><input style="width: 50px"></th>
+        <th><input style="width: 80px"></th>
+        <th><input style="width: 80px"></th>
+    </tr>
+    <tr>
+        <th>№ п/п</th>
+        <th>Код товара</th>
+        <th>Наименование товара</th>
+        <th>Доступно</th>
+        <th>Категория</th>
+        <th>Цена<br>пост-ка</th>
+        <th>НДС</th>
+        <th>Торговая<br>надбавка</th>
+        <th>Розничная<br>цена</th>
+        {% if document_id %}
+            <th>добавить<br>в док-т</th>
+        {% endif %}
+
+    </tr>
+    {% for product in products %}
+        {% for id, count in remnants_of_products.items %}
+            {% if product.id == id %}
+                <tr>
+                    <td>{{ forloop.parentloop.counter }}</td>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ count}}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.provider_price }}</td>
+                    <td>{{ product.vat }}%</td>
+                    <td>{{ product.margin_percentage|floatformat:'-2'}}%</td>
+                    <td>{{ product.product_price }}</td>
+
+                    {% if document_id %}
+                        <td><input id="product_count" style="width: 70px"></td>
+                        <td>
+                            <div id="calback_data">
+                                {% csrf_token %}
+                                <input type="button" value="+" id="add_btn">
+                                <input hidden id="document_date" value="{{ document_date }}">
+                                <input hidden id="document_id" value="{{ document_id }}">
+                                <input hidden id="storage_id" value="{{ storage_id }}">
+                                <input hidden id="product_id" value="{{ product.id }}" >
+                            </div>
+                        </td>
+                    {% endif %}
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</table>

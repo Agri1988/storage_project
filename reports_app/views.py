@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.template.loader import get_template
+from django.http import HttpResponseRedirect, HttpResponse
 from datetime import date
 from decimal import Decimal
 from django.http import JsonResponse
@@ -25,6 +27,7 @@ def products_in_storage(request, filter_name = None,filter_value=None):
 
 
 def products_remnants(request, document_id = None, document_date = date.today().strftime('%d.%m.%Y'), storage_id = None):
+    print(request.POST)
     document_date = document_date.split('.')
     document_date.reverse()
     document_date = '-'.join(document_date)
@@ -45,9 +48,17 @@ def products_remnants(request, document_id = None, document_date = date.today().
                     remnants_of_products[product_id_inloop] = product_count
                 else:
                     remnants_of_products[product_id_inloop] += product_count
-    print(remnants_of_products)
+    temp = remnants_of_products
+    remnants_of_products = {}
+    for key, value in temp.items():
+        if value != Decimal(0):
+            remnants_of_products[key] = value
     context = {'products':products, 'remnants_of_products':remnants_of_products, 'document_id':document_id,
                "document_date":document_date, 'storage_id':storage_id}
+
+    if request.POST.get('ajax'):
+        template = get_template('reports_app/reports_remnants.html')
+        return HttpResponse(template.render(context, request))
     return render(request, 'reports_app/base_report.html', context)
 
 

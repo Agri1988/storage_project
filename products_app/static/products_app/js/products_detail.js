@@ -80,7 +80,6 @@ $(document).ready(function () {
                 cache:true,
                 success:function (data){
                     console.log('OK');
-                    console.log(data);
                     category.append("<option value="+data['new_category_id']+">"+data['new_category_name']+"</option>");
                     category.val(data['new_category_id']);
                     close_modal_window()

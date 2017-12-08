@@ -5,6 +5,17 @@ $(document).ready(function () {
     var document_date = $('#id_date').val();
     console.log(a+'/'+document_id+'/'+storage_id);
 
+    var price_tickiet_list_btn = $('#price_tickiet_list');
+    var price_ticket_list_url = price_tickiet_list_btn.data('url');
+    price_tickiet_list_btn.on('click', function (event) {
+        event.preventDefault();
+        document.location.href = price_ticket_list_url
+    });
+
+    if ($('#id_document_type').val().indexOf('remove', '') != -1){
+        price_tickiet_list_btn.attr('style', 'display:none')
+    }
+
     add_product_btn.on('submit', function (e) {
         e.preventDefault();
         var document_type = $('#id_document_type').val();
@@ -12,7 +23,6 @@ $(document).ready(function () {
             document.location.href = a+'/'+document_id+'/'+storage_id;
         }
         else if (document_type == 'remove'){
-
             document.location.href = '/reports/'+document_date+'/'+document_id+'/'+storage_id
         }
         else if (document_type == 'move'){
@@ -26,16 +36,16 @@ $(document).ready(function () {
     var document_type = $('#id_document_type');
     var to_storage = $('#id_to_storage');
     to_storage.attr('style', 'display:none');
-    var label = $('label')[7]
-    label.setAttribute('style', 'display:none')
-    console.log(label)
+    var label = $('label')[7];
+    label.setAttribute('style', 'display:none');
+    console.log(label);
     document_type.change(function () {
         if (document_type.val() == 'move') {
-            to_storage.attr('style', 'display:')
+            to_storage.attr('style', 'display:');
             label.setAttribute('style', 'display:')
         }
         else {
-            to_storage.attr('style', 'display:none')
+            to_storage.attr('style', 'display:none');
             label.setAttribute('style', 'display:none')
         }
 

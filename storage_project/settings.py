@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'documents_app',
     'store_app',
     'reports_app',
+    'partners_app',
 
 ]
 
@@ -109,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-DATE_FORMAT = '%d.%m.%Y'
+DATE_FORMAT = 'd.m.Y'
 
 DATE_INPUT_FORMATS = ['%d.%m.%Y', '%d,%m,%Y', '%d/%m/%Y','%d-%m-%Y']
 

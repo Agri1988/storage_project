@@ -4,9 +4,7 @@
 $(document).ready(function () {
     var table = $('#table').find('tbody').find('th');
     var rows_length = document.getElementById('table').rows.length;
-
     function filter_data(index, sample) {
-
             var table = document.getElementById('table');
             for (var i = 2; i < rows_length; i++) {
                 if ((table.rows[i].cells[index].innerText.toLowerCase()).indexOf(sample.toLowerCase()) == -1) {
@@ -18,11 +16,8 @@ $(document).ready(function () {
                 }
             }
         }
-
-
     table.each(function (index) {
         var input = $(this).find('input');
-
             input.on('input keyup', function (e) {
                 console.log(input.val());
                 filter_data(index, String(input.val()))
@@ -47,7 +42,7 @@ $(document).ready(function () {
                     csrfmiddlewaretoken: csrf, input_product_id: input_product_id.val(), product_count:product_count.val()},
                 cache: true,
                 success: function () {
-                    console.log('OK')
+                    console.log('OK');
                     document.location.href = url_redirect
                 },
                 error: function () {
@@ -56,4 +51,27 @@ $(document).ready(function () {
             });
         });
     });
+
+    var get_remnants_form = $('#get_remnants_for_input_date');
+    var get_remnants_btn = get_remnants_form.find('button');
+    var get_remnants_input = get_remnants_form.find('#id_date_to');
+    var csrf = get_remnants_form.find("[name='csrfmiddlewaretoken']").val();
+    get_remnants_btn.on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+                url: get_remnants_form.attr('action')+get_remnants_input.val()+'/',
+                type: 'POST',
+                cache: true,
+                data:{csrfmiddlewaretoken: csrf, ajax:true},
+                success: function (data) {
+                    console.log('OK');
+                    $('#table').remove();
+                    $('.col-lg-5').append(data);
+                    console.log(data);
+                },
+                error: function () {
+                    console.log('error')
+                }
+            });
+    })
 });

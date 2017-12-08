@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^$', views.base, name='base'),
     url(r'^documents/', include('documents_app.urls', namespace='documents_app')),
     url(r'^products/', include('products_app.urls', namespace='products_app')),
-    url(r'^reports/', include('reports_app.urls', namespace='reports'))
+    url(r'^reports/', include('reports_app.urls', namespace='reports')),
+    url(r'^partners/', include('partners_app.urls', namespace='partners_app'))
 ]
