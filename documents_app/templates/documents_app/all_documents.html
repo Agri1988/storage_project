@@ -16,6 +16,7 @@
                     <th><input style="width: 200px"></th>
                     <th><input style="width: 80px"></th>
                     <th><input style="width: 80px"></th>
+                    <th><input style="width: 80px"></th>
                 </tr>
                 <tr>
                     <th>№<br>п/п</th>
@@ -25,6 +26,7 @@
                     <th>Номер</th>
                     <th>Дата</th>
                     <th>Поставщик</th>
+                    <th>Склад</th>
                     <th>Статус</th>
                     <th>Сумма по<br>документу</th>
                 </tr>
@@ -45,6 +47,13 @@
                         <td><a href="{% url 'documents_app:document_detail' document.id %}" >{{ document.number }}</a></td>
                         <td>{{ document.date|date:"d.m.Y"}}</td>
                         <td>{{ document.provider }}</td>
+                        <td>
+                            {% if document.document_type == 'add' or  document.document_type == 'remove'%}
+                                {{ document.storage }}
+                            {% elif document.document_type == 'move'  %}
+                                {{ document.to_storage }}
+                            {% endif %}
+                        </td>
                         <td>
                              {% if document.document_status_execute == True %}
                                 Проведен

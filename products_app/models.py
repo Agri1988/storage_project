@@ -17,7 +17,7 @@ class Category(models.Model):
 
 
 class Product (models.Model):
-    code = models.IntegerField(unique=True,null=True, blank=False, default=None,verbose_name='Код товара')
+    code = models.IntegerField(unique=True,null=True, blank=True, default=None,verbose_name='Код товара')
     name = models.CharField(max_length=256, blank=False, verbose_name='Наименование товара')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     units = models.CharField(max_length=16, blank=True, null=True, verbose_name='Единицы измерения')

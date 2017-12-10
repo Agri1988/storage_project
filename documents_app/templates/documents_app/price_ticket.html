@@ -19,7 +19,8 @@
                         </tr>
                         <tr>
                             <td colspan="2" style='font-size: xx-large; text-align:center'>
-                                {{ product.product.product_price }} руб.
+                                {{ product.product.product_price|make_list|slice:':-3'|join:'' }} руб.
+                                {{ product.product.product_price|make_list|slice:'-2:'|join:'' }} коп.
                             </td>
                         </tr>
                             <tr>

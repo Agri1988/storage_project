@@ -54,12 +54,23 @@ $(document).ready(function () {
 
     var get_remnants_form = $('#get_remnants_for_input_date');
     var get_remnants_btn = get_remnants_form.find('button');
-    var get_remnants_input = get_remnants_form.find('#id_date_to');
+    var get_remnants_date = get_remnants_form.find('#id_date_to');
+    var get_remnants_storage = get_remnants_form.find('#id_storage');
+    get_remnants_storage.append('<option value="0" selected="">Все склады</option>');
+    get_remnants_storage.val('0');
+    function create_url() {
+        if (get_remnants_storage.val() == '0'){
+            return get_remnants_form.attr('action')+get_remnants_date.val()+'/'
+        }
+        else {
+            return get_remnants_form.attr('action')+get_remnants_date.val()+'/'+get_remnants_storage.val()+'/'
+        }
+    }
     var csrf = get_remnants_form.find("[name='csrfmiddlewaretoken']").val();
     get_remnants_btn.on('click', function (event) {
         event.preventDefault();
         $.ajax({
-                url: get_remnants_form.attr('action')+get_remnants_input.val()+'/',
+                url: create_url(),
                 type: 'POST',
                 cache: true,
                 data:{csrfmiddlewaretoken: csrf, ajax:true},

@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from documents_app.form import DocumentForm
 
 
 from products_app.models import ProductMovement, Product, Products
@@ -28,13 +29,17 @@ def products_in_storage(request, filter_name = None,filter_value=None):
 
 def products_remnants(request, document_id = None, document_date = date.today().strftime('%d.%m.%Y'), storage_id = None):
     print(request.POST)
+    date_to_filter_fireld = document_date
     document_date = document_date.split('.')
     document_date.reverse()
     document_date = '-'.join(document_date)
+    storage_field = DocumentForm()
     if storage_id != None:
         movement_entries = ProductMovement.objects.filter(date__lte=document_date).filter(storage=storage_id)
+
     else:
         movement_entries = ProductMovement.objects.filter(date__lte=document_date)
+
     products = Product.objects.all()
     remnants_of_products = {}
     for product in products:
@@ -54,7 +59,8 @@ def products_remnants(request, document_id = None, document_date = date.today().
         if value != Decimal(0):
             remnants_of_products[key] = value
     context = {'products':products, 'remnants_of_products':remnants_of_products, 'document_id':document_id,
-               "document_date":document_date, 'storage_id':storage_id}
+               "document_date":document_date, 'storage_id':storage_id,'date_to_filter_fireld':date_to_filter_fireld,
+               'storage_field':storage_field}
 
     if request.POST.get('ajax'):
         template = get_template('reports_app/reports_remnants.html')

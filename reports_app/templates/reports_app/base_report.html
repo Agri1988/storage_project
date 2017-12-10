@@ -6,7 +6,10 @@
         <div class="col-lg-5">
             <form  id='get_remnants_for_input_date' enctype="multipart/form-data" action="{% url 'reports:product_remnants' %}" method="post">
                 {% csrf_token %}
-                <input type="text" name="date_to" value="05.12.2017" id="id_date_to" required="">
+                <label style="padding-left: 5px; padding-right: 10px">Дата</label>
+                <input type="text" name="date_to" value="{{ date_to_filter_fireld}}" id="id_date_to" required="">
+                <label style="padding-left: 5px; padding-right: 10px">Склад</label>
+                {{ storage_field.storage}}
                 <button name="submit">Найти остатки</button>
             </form>
 
